@@ -26,8 +26,7 @@ body {
 			//  Remove the next 2 lines if running locally
 			this.load.baseURL = 'https://asterislazaridis.github.io/Super-Mario/';
 			this.load.crossOrigin = 'anonymous';
-			game.load.audio('jump',['audio/jump.mp3','audio/jump.ogg']);
-
+			game.load.audio('old'['audio/MARIO.mp3','audio/MARIO.ogg']);
 			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,
 					16);
 			this.load.spritesheet('goomba', 'assets/goomba.png', 16, 16);
@@ -46,6 +45,8 @@ body {
 			game.physics.startSystem(Phaser.Physics.ARCADE);
 
 			game.stage.backgroundColor = '#5c94fc';
+			music = game.add.audio('old');
+			music.play('',0,1,true);
 
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
@@ -112,8 +113,6 @@ body {
 
 				if (cursors.up.isDown && player.body.onFloor()) {
 					player.body.velocity.y = -190;
-					var snd = game.add.audio('jump');
-					snd.play();
 					player.animations.stop();
 				}
 
