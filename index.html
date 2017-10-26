@@ -27,7 +27,8 @@ body {
 			this.load.baseURL = 'https://asterislazaridis.github.io/Super-Mario/';
 			this.load.crossOrigin = 'anonymous';
 			game.load.audio('old',['audio/MARIO.mp3','audio/MARIO.ogg']);
-			game.load.audio('push',['audio/jump.wav'])
+			game.load.audio('push',['audio/jump.wav']);
+			game.load.audio('tink',['audio/coin.wav']);
 			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,
 					16);
 			this.load.spritesheet('goomba', 'assets/goomba.png', 16, 16);
@@ -130,6 +131,8 @@ body {
 
 		function coinOverlap(player, coin) {
 			coin.kill();
+			coinSound = game.add.audio('tink');
+			coinSound.play();
 		}
 
 		function goombaOverlap(player, goomba) {
