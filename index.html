@@ -51,12 +51,6 @@ body {
 			game.stage.backgroundColor = '#5c94fc';
 			music = game.add.audio('old');
 			music.play('',0,1,true);
-			score = game.add.text(20,10,'0',{
-				font: "24px Arial",
-				fill: "#ffffff",
-				aligment: "center")};
-			score.fixedToCamera = true;
-			score1 = 0;
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
 			map.setCollisionBetween(3, 12, true, 'solid');
@@ -101,7 +95,6 @@ body {
 			game.physics.arcade.collide(goombas, layer);
 			game.physics.arcade.overlap(player, goombas, goombaOverlap);
 			game.physics.arcade.overlap(player, coins, coinOverlap);
-			score.text = 'Score : ' +score1;
 			if (player.body.enable) {
 				player.body.velocity.x = 0;
 				if (cursors.left.isDown) {
@@ -138,14 +131,12 @@ body {
 
 		function coinOverlap(player, coin) {
 			coin.kill();
-			score1 +=5;
 			coinSound = game.add.audio('tink');
 			coinSound.play();
 		}
 
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
-				score1 +=10;
 				killSound = game.add.audio('kill');
 				killSound.play();
 				goomba.animations.stop();
