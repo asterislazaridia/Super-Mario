@@ -19,7 +19,6 @@ body {
 			create : create,
 			update : update
 		}, false, false);
-		var score = 0;
 		function preload() {
 
 			//  We need this because the assets are on github pages
@@ -39,9 +38,10 @@ body {
 
 			this.load.tilemap('level', 'assets/super_mario_map.json', null,
 					Phaser.Tilemap.TILED_JSON);
-					var score = 0;
 
 		}
+		var score = 0;
+
 
 		function create() {
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
@@ -53,8 +53,9 @@ body {
 			game.stage.backgroundColor = '#5c94fc';
 			music = game.add.audio('old');
 			music.play('',0,1,true);
-			text = game.add.text(12,23,'score : 0',[fill : '#000000'],[aligment : 'center');
-
+			score = game.add.text(20,10,'score : 0',[fill : '#000000'],[aligment : 'center');
+			score.fixedToCamera = true;
+			score1 = 0;
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
 			map.setCollisionBetween(3, 12, true, 'solid');
