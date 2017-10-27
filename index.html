@@ -40,8 +40,8 @@ body {
 					Phaser.Tilemap.TILED_JSON);
 
 		}
-		var score = 0;
-
+		//var score = 0;
+		//var score1;
 
 		function create() {
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
@@ -53,8 +53,11 @@ body {
 			game.stage.backgroundColor = '#5c94fc';
 			music = game.add.audio('old');
 			music.play('',0,1,true);
-			score = game.add.text(20,10,'score : 0',[fill : '#000000'],[aligment : 'center');
-			score.fixedToCamera = true;
+			score = game.add.text(20,10,'0',{
+				font: "24px Arial",
+				fill: "#ffffff",
+				aligment: "center")};
+				
 			score1 = 0;
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
