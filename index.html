@@ -115,7 +115,7 @@ body {
 					else
 						player.frame = 7;
 				}
-
+				//jump
 				if (cursors.up.isDown && player.body.onFloor()) {
 					player.body.velocity.y = -190;
 					jumpSound = game.add.audio('push');
@@ -131,7 +131,7 @@ body {
 				}
 			}
 		}
-
+		//coins
 		function coinOverlap(player, coin) {
 			coin.kill();
 			score += 5;
@@ -139,7 +139,7 @@ body {
 			coinSound = game.add.audio('tink');
 			coinSound.play();
 		}
-
+		//μανιταρις
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
 				killSound = game.add.audio('kill');
@@ -154,6 +154,7 @@ body {
 					goomba.kill();
 				});
 			} else {
+				//θανατος
 				music.stop();
 				player.frame = 6;
 				player.body.enable = false;
