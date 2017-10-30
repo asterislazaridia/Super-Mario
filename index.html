@@ -39,10 +39,19 @@ body {
 					Phaser.Tilemap.TILED_JSON);
 
 		}
+		var lives = 3;
+		var livesText;
+		var lifeLostText;
 		var score = 0;
 		var scoreText;
 
 		function create() {
+			textStyle = { font: '18px Arial', fill: '#0095DD' };
+			livesText = game.add.text(game.world.width-5, 5, 'Lives: '+lives, textStyle);
+			livesText.anchor.set(1,0);
+			lifeLostText = game.add.text(game.world.width*0.5, game.world.height*0.5, 'Life lost, click to continue', textStyle);
+			lifeLostText.anchor.set(0.5);
+			lifeLostText.visible = false;
 			
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
 			game.scale.pageAlignHorizontally = true;
@@ -53,7 +62,7 @@ body {
 			game.stage.backgroundColor = '#5c94fc';
 			music = game.add.audio('old');
 			music.play('',0,1,true);
-			scoreText = game.add.text(20, 10, 'score: 0', { fontSize: '24px', fill: '#ffffff' });
+			scoreText = game.add.text(5, 5, 'Points: 0', textStyle);
 			scoreText.fixedToCamera = true;
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
