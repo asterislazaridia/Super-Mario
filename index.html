@@ -39,9 +39,6 @@ body {
 					Phaser.Tilemap.TILED_JSON);
 
 		}
-		var lives = 3;
-		var livesText;
-		var lifeLostText;
 		var score = 0;
 		var scoreText;
 
@@ -163,7 +160,7 @@ body {
 				game.time.events.add(Phaser.Timer.SECOND, function() {
 					goomba.kill();
 				});
-			} else {add(ballLeaveScreen, this);
+			} else {
 				//θανατος
 				music.stop();
 				player.frame = 6;
@@ -177,23 +174,7 @@ body {
 				});
 			}
 		}
-		function ballLeaveScreen() {
-    lives--;
-    if(lives) {
-        livesText.setText('Lives: '+lives);
-        lifeLostText.visible = true;
-        ball.reset(game.world.width*0.5, game.world.height-25);
-        paddle.reset(game.world.width*0.5, game.world.height-5);
-        game.input.onDown.addOnce(function(){
-            lifeLostText.visible = false;
-            ball.body.velocity.set(150, -150);
-        }, this);
-    }
-    else {
-        alert('You lost, game over!');
-        location.reload();
-    }
-}
+		
 	</script>
 </body>
 </html>
