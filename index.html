@@ -57,7 +57,7 @@ body {
 			music.play('',0,1,true);
 			
 			//Lives
-			livesText = game.add.text( game.world.width - 150, 5, 'Lives: ' + lives, {
+			livesText = game.add.text( game.world.width - 150, 5, '3', {
 				font: '18px Arial',
 				fill: '#ffffff',
 				aligment: 'Center'
@@ -125,7 +125,8 @@ body {
 		}
 
 		function update() {
-			//livesText.text = 'Lives : ' + lives;
+			livesText.text = 'Lives : ' + lives;
+			game.world.bringToTop(livesText);
 			
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
