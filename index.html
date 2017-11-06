@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-Mario</title>
+<title>Super-Mario2</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -24,13 +24,16 @@ body {
 			//  Remove the next 2 lines if running locally
 			this.load.baseURL = 'https://asterislazaridis.github.io/Super-Mario/';
 			this.load.crossOrigin = 'anonymous';
+			
+			//Sounds
 			game.load.audio('old',['audio/MARIO.mp3','audio/MARIO.ogg']);
 			game.load.audio('push',['audio/jump.wav']);
 			game.load.audio('tink',['audio/coin.wav']);
 			game.load.audio('kill',['audio/stomp.wav']);
 			game.load.audio('death',['audio/death.mp3']);
-			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,
-					16);
+			
+			
+			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,16);
 			this.load.spritesheet('goomba', 'assets/goomba.png', 16, 16);
 			this.load.spritesheet('mario', 'assets/mario.png', 16, 16);
 			this.load.spritesheet('coin', 'assets/coin.png', 16, 16);
@@ -39,31 +42,45 @@ body {
 					Phaser.Tilemap.TILED_JSON);
 
 		}
-		var lives = 3;
+		var lives;
 		var livesText;
-		var lifeLostText;
-		var score = 0;
+		var score;
 		var scoreText;
 
 		function create() {
-			textStyle = { font: '18px Arial', fill: '#5c94fc' };
-			livesText = game.add.text(game.world.width-5, 5, 'Lives: '+lives, textStyle);
-			livesText.anchor.set(1,0);
-			lifeLostText = game.add.text(game.world.width*0.5, game.world.height*0.5, 'Life lost, click to continue', textStyle);
-			lifeLostText.anchor.set(0.5);
-			lifeLostText.visible = false;
+			//Music
+			music = game.add.audio('old');
+			music.play('',0,1,true);
+			
+			//Lives
+			livesText = game.add.text( game.world.width-5, 5, 'Lives: ' + lives, {
+				font: '18px Arial',
+				fill: '#ffffff',
+				aligment: 'Center'
+			});
+			livesText.fixedToCamera = true;
+			livesText.stroke = '#000000';
+			livesText.strokeThickness = 1;
+			lives = 2;
+			
+			//Score
+			scoreText = game.add.text(5, 5, 'Points: 0', {
+				font: '18px Arial',
+				fill: '#ffffff',
+				aligment: 'center'
+			});
+			scoreText.fixedToCamera = true;
+			scoreText.stroke = '#000000';
+			scoreText.strokeThickness = 1;
+			score = 0;
 			
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
 			game.scale.pageAlignHorizontally = true;
 			game.scale.pageAlignVertically = true
 			game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 			game.physics.startSystem(Phaser.Physics.ARCADE);
-
 			game.stage.backgroundColor = '#FF1F00';
-			music = game.add.audio('old');
-			music.play('',0,1,true);
-			scoreText = game.add.text(5, 5, 'Points: 0', textStyle);
-			scoreText.fixedToCamera = true;
+			
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
 			map.setCollisionBetween(3, 12, true, 'solid');
@@ -149,7 +166,7 @@ body {
 			coinSound = game.add.audio('tink');
 			coinSound.play();
 		}
-		//μανιταρις
+		//manitaria
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
 				killSound = game.add.audio('kill');
@@ -164,7 +181,7 @@ body {
 					goomba.kill();
 				});
 			} else {
-				//θανατος
+				//death
 				music.stop();
 				player.frame = 6;
 				player.body.enable = false;
