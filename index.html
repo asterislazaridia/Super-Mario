@@ -57,10 +57,10 @@ body {
 			music.play('',0,1,true);
 			
 			//Lives
-			livesText = game.add.text( game.world.width - 70, 5, '3', {
+			livesText = game.add.text(180, 5, '3', {
 				font: '18px Arial',
 				fill: '#ffffff',
-				aligment: 'Center'
+				aligment: 'center'
 			});
 			livesText.fixedToCamera = true;
 			livesText.stroke = '#000000';
@@ -68,7 +68,7 @@ body {
 			lives = parseInt(localStorage.getItem("livesL"));
 			
 			//Score
-			scoreText = game.add.text(5, 5, 'Points: 0', {
+			scoreText = game.add.text(5, 5, '0', {
 				font: '18px Arial',
 				fill: '#ffffff',
 				aligment: 'center'
@@ -205,7 +205,8 @@ body {
 				
 				
 				game.time.events.add(Phaser.Timer.SECOND * 3, function() {
-					//game.paused = true;
+					if(lives == 0)
+						game.paused = true;
 					this.game.state.restart();
 				});
 			}
