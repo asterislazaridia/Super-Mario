@@ -125,8 +125,12 @@ body {
 		}
 
 		function update() {
+			//Lives update
 			livesText.text = 'Lives : ' + lives;
 			game.world.bringToTop(livesText);
+			//Score update
+			scoreText.text = 'Score: ' + score;
+			game.world.bringToTop(scoreText);
 			
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
@@ -169,7 +173,6 @@ body {
 		function coinOverlap(player, coin) {
 			coin.kill();
 			score += 5;
-   		 	scoreText.text = 'Score: ' + score;
 			coinSound = game.add.audio('tink');
 			coinSound.play();
 		}
@@ -179,7 +182,6 @@ body {
 				killSound = game.add.audio('kill');
 				killSound.play();
 				score += 15;
-    				scoreText.text = 'Score: ' + score;
 				goomba.animations.stop();
 				goomba.frame = 2;
 				goomba.body.enable = false;
