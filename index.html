@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-Mario2</title>
+<title>Super-Mario</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -51,7 +51,7 @@ body {
 
 		function create() {
 			//Creating Lives
-			livesText = game.add.text( 150, 10, '3',{
+			/*livesText = game.add.text( 20, 20, '3',{
 				font: "25px arial",
 				fill: "#ffffff",
 				aligment: "center"
@@ -61,7 +61,7 @@ body {
     			livesText.strokeThickness = 1;
 			
 			livesCount = parseInt(localStorage.getItem("lives"));;
-			
+			*/
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
 			game.scale.pageAlignHorizontally = true;
 			game.scale.pageAlignVertically = true
@@ -114,8 +114,8 @@ body {
 
 		function update() {
 			//Lives print
-			livesText.text = "LIVES : " + livesCount;
-			game.world.bringToTop(livesText);
+			//livesText.text = "LIVES : " + livesCount;
+			//game.world.bringToTop(livesText);
 			
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
