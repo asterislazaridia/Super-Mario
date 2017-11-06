@@ -42,10 +42,10 @@ body {
 
 		}
 		//Initialize lives on localStorage
-		localStorage.setItem("lives", 3);
+		//localStorage.setItem("lives", 3);
 		
-		var livesCount;
-		var livesText;
+		//var livesCount;
+		//var livesText;
 		var score = 0;
 		var scoreText;
 
@@ -162,7 +162,7 @@ body {
 			coinSound = game.add.audio('tink');
 			coinSound.play();
 		}
-		//μανιταρις
+		//Manitaria
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
 				killSound = game.add.audio('kill');
@@ -177,7 +177,7 @@ body {
 					goomba.kill();
 				});
 			} else {
-				//θανατος
+				//Death
 				music.stop();
 				player.frame = 6;
 				player.body.enable = false;
