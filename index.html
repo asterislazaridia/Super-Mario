@@ -42,6 +42,9 @@ body {
 					Phaser.Tilemap.TILED_JSON);
 
 		}
+		
+		//Lives and Score
+		localStorage.setItem('LocalLives', 3);
 		var lives;
 		var livesText;
 		var score;
@@ -61,7 +64,7 @@ body {
 			livesText.fixedToCamera = true;
 			livesText.stroke = '#000000';
 			livesText.strokeThickness = 1;
-			lives = 2;
+			lives = parseint(localStorage.getItem('LocalLives'));
 			
 			//Score
 			scoreText = game.add.text(5, 5, 'Points: 0', {
@@ -121,6 +124,8 @@ body {
 		}
 
 		function update() {
+			livesText.text = 'Lives : ' + lives;
+			
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
 			game.physics.arcade.overlap(player, goombas, goombaOverlap);
@@ -181,13 +186,19 @@ body {
 					goomba.kill();
 				});
 			} else {
-				//death
+				//death sound
 				music.stop();
+				deathSound = game.add.audio('death');
+				deathSound.play();
+				
+				//Lives
+				lives -= 1;
+				localStorage.setItem('LocalLives', lives);
+				
 				player.frame = 6;
 				player.body.enable = false;
 				player.animations.stop();
-				deathSound = game.add.audio('death');
-				deathSound.play();
+				
 				
 				game.time.events.add(Phaser.Timer.SECOND * 3, function() {
 					game.paused = true;
