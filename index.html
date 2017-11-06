@@ -44,7 +44,8 @@ body {
 		}
 		
 		//Lives and Score
-		localStorage.setItem('LocalLives', 3);
+		localStorage.setItem("livesL", 3);
+		
 		var lives;
 		var livesText;
 		var score;
@@ -64,7 +65,7 @@ body {
 			livesText.fixedToCamera = true;
 			livesText.stroke = '#000000';
 			livesText.strokeThickness = 1;
-			lives = parseint(localStorage.getItem('LocalLives'));
+			lives = parseInt(localStorage.getItem("livesL"));
 			
 			//Score
 			scoreText = game.add.text(5, 5, 'Points: 0', {
@@ -193,7 +194,7 @@ body {
 				
 				//Lives
 				lives -= 1;
-				localStorage.setItem('LocalLives', lives);
+				localStorage.setItem("livesL", lives);
 				
 				player.frame = 6;
 				player.body.enable = false;
@@ -201,7 +202,8 @@ body {
 				
 				
 				game.time.events.add(Phaser.Timer.SECOND * 3, function() {
-					game.paused = true;
+					//game.paused = true;
+					this.game.state.restart();
 				});
 			}
 		}
