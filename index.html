@@ -19,6 +19,9 @@ body {
 			create : create,
 			update : update
 		}, false, false);
+
+		deathSound = game.add.audio('death');
+
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -213,7 +216,7 @@ body {
 		score += 420;
 
 		//kill sound playback
-		deathSound.play();
+		jumpSound.play();
 
 		//Creating turtles behavior
 		turtle.body.velocity.x = 0;
@@ -278,7 +281,6 @@ body {
 		function deathmlg(){
 			//death sound
 				music.stop();
-				deathSound = game.add.audio('death');
 				deathSound.play();
 				
 				//Lives
