@@ -21,6 +21,8 @@ body {
 		}, false, false);
 
 		deathSound = game.add.audio('death');
+		jumpSound = game.add.audio('push');
+		coinSound = game.add.audio('tink');
 
 		function preload() {
 			//  We need this because the assets are on github pages
@@ -171,7 +173,6 @@ body {
 				//jump
 				if (cursors.up.isDown && player.body.onFloor()) {
 					player.body.velocity.y = -190;
-					jumpSound = game.add.audio('push');
 					jumpSound.play();
 					player.animations.stop();
 				}
@@ -188,7 +189,6 @@ body {
 		function coinOverlap(player, coin) {
 			coin.kill();
 			score += 5;
-			coinSound = game.add.audio('tink');
 			coinSound.play();
 		}
 		//manitaria
