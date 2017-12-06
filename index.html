@@ -20,10 +20,6 @@ body {
 			update : update
 		}, false, false);
 
-		deathSound = game.add.audio('death');
-		jumpSound = game.add.audio('push');
-		coinSound = game.add.audio('tink');
-
 		function preload() {
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
@@ -173,6 +169,7 @@ body {
 				//jump
 				if (cursors.up.isDown && player.body.onFloor()) {
 					player.body.velocity.y = -190;
+					jumpSound = game.add.audio('push');
 					jumpSound.play();
 					player.animations.stop();
 				}
@@ -189,6 +186,7 @@ body {
 		function coinOverlap(player, coin) {
 			coin.kill();
 			score += 5;
+			coinSound = game.add.audio('tink');
 			coinSound.play();
 		}
 		//manitaria
@@ -216,6 +214,7 @@ body {
 		score += 420;
 
 		//kill sound playback
+		jumpSound = game.add.audio('push');
 		jumpSound.play();
 
 		//Creating turtles behavior
@@ -243,6 +242,7 @@ body {
 		if (turtle.body.velocity.x == 0){
 
 			//Kick sound playback
+			jumpSound = game.add.audio('push');
 			jumpSound.play();
 
 			turtle.body.velocity.x = -1000000000;
@@ -255,6 +255,7 @@ body {
 		if (turtle.body.velocity.x == 0){
 
 			//Kick sound playback
+			jumpSound = game.add.audio('push');
 			jumpSound.play();
 
 			turtle.body.velocity.x = 1000000000;
@@ -281,6 +282,7 @@ body {
 		function deathmlg(){
 			//death sound
 				music.stop();
+				deathSound = game.add.audio('death');
 				deathSound.play();
 				
 				//Lives
