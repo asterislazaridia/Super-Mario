@@ -244,6 +244,8 @@ body {
 			//Kick sound playback
 			jumpSound = game.add.audio('push');
 			jumpSound.play();
+			
+			console.log("FAK OF");
 
 			turtle.body.velocity.x = -1000000000;
 			turtle.body.velocity.x = -170;
@@ -257,6 +259,8 @@ body {
 			//Kick sound playback
 			jumpSound = game.add.audio('push');
 			jumpSound.play();
+			
+			console.log("FAK OF");
 
 			turtle.body.velocity.x = 1000000000;
 			turtle.body.velocity.x = 170;
@@ -264,6 +268,7 @@ body {
 		}
 		else
 			deathmlg();
+			console.log("DEd");
 	}else if((player.body.touching.right || player.body.touching.left) && (turtle.frame != 9))
 		deathmlg();
 }
