@@ -245,15 +245,15 @@ body {
 			jumpSound = game.add.audio('push');
 			jumpSound.play();
 			
-			console.log("FAK OF");
+			console.log(turtle.frame);
 
 			turtle.body.velocity.x = -1000000000;
 			turtle.body.velocity.x = -170;
 			player.body.velocity.x = 1000000000;
-		}
-		else
+		}else{
 			deathmlg();
-			console.log("DEd");
+			console.log(turtle.frame);
+		}
 	}else if(player.body.touching.right && (turtle.frame == 9)){
 		if (turtle.body.velocity.x == 0){
 
@@ -261,15 +261,15 @@ body {
 			jumpSound = game.add.audio('push');
 			jumpSound.play();
 			
-			console.log("FAK OF");
+			console.log(turtle.frame);
 
 			turtle.body.velocity.x = 1000000000;
 			turtle.body.velocity.x = 170;
 			player.body.velocity.x = -1000000000;
-		}
-		else
+		}else{
 			deathmlg();
-			console.log("DEd");
+			console.log(turtle.frame);
+		}
 	}else if((player.body.touching.right || player.body.touching.left) && (turtle.frame != 9))
 		deathmlg();
 }
