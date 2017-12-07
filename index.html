@@ -115,7 +115,7 @@ body {
 			//goomba
 			goombas = game.add.group();
 			goombas.enableBody = true;
-			map.createFromTiles( 2, null, 'goomba', 'stuff', goombas);
+			map.createFromTiles( 3, null, 'goomba', 'stuff', goombas);
 			goombas.callAll('animations.add', 'animations', 'walk', [ 0, 1 ], 2, true);
 			goombas.callAll('animations.play', 'animations', 'walk');
 			goombas.setAll('body.bounce.x', 1);
