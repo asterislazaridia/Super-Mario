@@ -33,7 +33,7 @@ body {
 			game.load.audio('kill',['audio/stomp.wav']);
 			game.load.audio('death',['audio/death.mp3']);
 			
-			this.load.spritesheet('turtle', 'assets/enemies.png', 16,24);
+			this.load.spritesheet('turtle', 'assets/turtle.png', 16,24);
 			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,16);
 			this.load.spritesheet('goomba', 'assets/goomba.png', 16, 16);
 			this.load.spritesheet('mario', 'assets/mario.png', 16, 16);
@@ -50,9 +50,20 @@ body {
 		var score;
 		var scoreText;
 
+		var music;
+		var jumpSound;
+		var coinSound;
+		var killSound;
+		var deathSound;
+
 		function create() {
-			//Music
 			music = game.add.audio('old');
+			jumpSound = game.add.audio('push');
+			coinSound = game.add.audio('tink');
+			killSound = game.add.audio('kill');
+			deathSound = game.add.audio('death');
+			
+			//Music
 			music.play('',0,1,true);
 			
 			//Lives
@@ -100,15 +111,15 @@ body {
 			coins.callAll('animations.play', 'animations', 'spin');
 
 			//turtle
-			turtle = game.add.group();
-			turtle.enableBody = true;
-			map.createFromTiles( 3, null, 'turtle', 'stuff', turtle);
-			turtle.callAll('animations.add', 'animations', 'moveLeft', [ 0, 1 ], 2, true);
-			turtle.callAll('animations.add', 'animations', 'moveRight', [ 6, 7 ], 2, true);
-			turtle.callAll('animations.play', 'animations', 'moveLeft');
-			turtle.setAll('body.bounce.x', 1);
-			turtle.setAll('body.velocity.x', -20);
-			turtle.setAll('body.gravity.y', 500);
+			turtles = game.add.group();
+			turtles.enableBody = true;
+			map.createFromTiles( 26, null, 'turtle', 'stuff', turtles);
+			turtles.callAll('animations.add', 'animations', 'moveLeft', [ 0, 1 ], 2, true);
+			turtles.callAll('animations.add', 'animations', 'moveRight', [ 2, 3 ], 2, true);
+			turtles.callAll('animations.play', 'animations', 'moveLeft');
+			turtles.setAll('body.bounce.x', 1);
+			turtles.setAll('body.gravity.y', 500);
+			turtles.setAll('body.velocity.x', -20);
 
 			//goomba
 			goombas = game.add.group();
@@ -168,7 +179,6 @@ body {
 				//jump
 				if (cursors.up.isDown && player.body.onFloor()) {
 					player.body.velocity.y = -190;
-					jumpSound = game.add.audio('push');
 					jumpSound.play();
 					player.animations.stop();
 				}
@@ -186,14 +196,12 @@ body {
 		function coinOverlap(player, coin) {
 			coin.kill();
 			score += 5;
-			coinSound = game.add.audio('tink');
 			coinSound.play();
 		}
 
 		//manitaria
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
-				killSound = game.add.audio('kill');
 				killSound.play();
 				score += 15;
 				goomba.animations.stop();
@@ -209,71 +217,58 @@ body {
 		}
 
 		function turtleOverlap(player, turtle){
-			if(player.body.touching.down && (turtle.frame != 9)) {
+			if(player.body.touching.down && (turtle.frame != 4)) {
 
 				//Turtle score add
-				score += 420;
+				score_count += 30;
 
 				//kill sound playback
-				jumpSound = game.add.audio('push');
-				jumpSound.play();
+				killSound.play();
 
 				//Creating turtles behavior
 				turtle.body.velocity.x = 0;
 				turtle.animations.stop();
-				turtle.frame = 9;
+				turtle.frame = 4;
 				turtle.body.setSize(16, 16, 0, 8);
 				if (cursors.up.isDown){
 					player.body.velocity.y = -200;
 
 					//Jump sound playback
-					jumpSound = game.add.audio('push');
-					jumpSound.play( '', 0, 1);
+					jumpsound.play( '', 0, 1);
 				}else
 					player.body.velocity.y = -80;
-			}else if(player.body.touching.down && (turtle.frame == 9)){
+			}else if(player.body.touching.down && (turtle.frame == 4)){
 				turtle.body.velocity.x = 0;
 				if (cursors.up.isDown){
 					player.body.velocity.y = -220;
-					jumpSound = game.add.audio('push');
-					jumpSound.play( '', 0, 1);
+					jumpsound.play( '', 0, 1);
 				}else
 					player.body.velocity.y = -80;
-			}else if(player.body.touching.left && (turtle.frame == 9)){
-				if (turtle.body.velocity.x == 0){
+				}else if(player.body.touching.left && (turtle.frame == 4)){
+					if (turtle.body.velocity.x == 0){
 
 					//Kick sound playback
-					jumpSound = game.add.audio('push');
-					jumpSound.play();
-			
-					console.log(turtle.frame);
-					console.log(turtle.body.velocity.x);
+					kickSound.play();
 
 					turtle.body.velocity.x = -1000000000;
 					turtle.body.velocity.x = -170;
 					player.body.velocity.x = 1000000000;
-				}else{
-					deathmlg();
-					console.log(turtle.frame);
 				}
-			}else if(player.body.touching.right && (turtle.frame == 9)){
+				else
+					deathmlg();
+			}else if(player.body.touching.right && (turtle.frame == 4)){
 				if (turtle.body.velocity.x == 0){
 
 					//Kick sound playback
-					jumpSound = game.add.audio('push');
-					jumpSound.play();
-			
-					console.log(turtle.frame);
-					console.log(turtle.body.velocity.x);
+					kickSound.play();
 
 					turtle.body.velocity.x = 1000000000;
 					turtle.body.velocity.x = 170;
 					player.body.velocity.x = -1000000000;
-				}else{
-					deathmlg();
-					console.log(turtle.frame);
 				}
-			}else if((player.body.touching.right || player.body.touching.left) && (turtle.frame != 9))
+				else
+					deathmlg();
+			}else if((player.body.touching.right || player.body.touching.left) && (turtle.frame != 4))
 				deathmlg();
 		}
 
@@ -291,7 +286,6 @@ body {
 		function deathmlg(){
 			//death sound
 			music.stop();
-			deathSound = game.add.audio('death');
 			deathSound.play();
 		
 			//Lives
