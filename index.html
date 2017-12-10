@@ -113,7 +113,7 @@ body {
 			//turtle
 			turtles = game.add.group();
 			turtles.enableBody = true;
-			map.createFromTiles( 26, null, 'turtle', 'stuff', turtles);
+			map.createFromTiles( 3, null, 'turtle', 'stuff', turtles);
 			turtles.callAll('animations.add', 'animations', 'moveLeft', [ 0, 1 ], 2, true);
 			turtles.callAll('animations.add', 'animations', 'moveRight', [ 2, 3 ], 2, true);
 			turtles.callAll('animations.play', 'animations', 'moveLeft');
