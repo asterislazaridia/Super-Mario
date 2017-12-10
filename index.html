@@ -39,9 +39,7 @@ body {
 			this.load.spritesheet('mario', 'assets/mario.png', 16, 16);
 			this.load.spritesheet('coin', 'assets/coin.png', 16, 16);
 
-			this.load.tilemap('level', 'assets/super_mario_map.json', null,
-					Phaser.Tilemap.TILED_JSON);
-
+			this.load.tilemap('level', 'assets/super_mario_map.json', null, Phaser.Tilemap.TILED_JSON);
 		}
 		
 		//Lives and Score
@@ -88,7 +86,7 @@ body {
 			
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
-			map.setCollisionBetween(3, 12, true, 'solid');
+			map.setCollisionBetween(4, 12, true, 'solid');
 
 			map.createLayer('background');
 
@@ -98,13 +96,13 @@ body {
 			coins = game.add.group();
 			coins.enableBody = true;
 			map.createFromTiles(2, null, 'coin', 'stuff', coins);
-			coins.callAll('animations.add', 'animations', 'spin',
-					[ 0, 0, 1, 2 ], 3, true);
+			coins.callAll('animations.add', 'animations', 'spin', [ 0, 0, 1, 2 ], 3, true);
 			coins.callAll('animations.play', 'animations', 'spin');
+
 			//turtle
-			turtle=game.add.group();
+			turtle = game.add.group();
 			turtle.enableBody = true;
-			map.createFromTiles(1, null, 'turtle', 'stuff', turtle);
+			map.createFromTiles( 3, null, 'turtle', 'stuff', turtle);
 			turtle.callAll('animations.add', 'animations', 'moveLeft', [ 0, 1 ], 2, true);
 			turtle.callAll('animations.add', 'animations', 'moveRight', [ 6, 7 ], 2, true);
 			turtle.callAll('animations.play', 'animations', 'moveLeft');
@@ -166,6 +164,7 @@ body {
 					else
 						player.frame = 7;
 				}
+
 				//jump
 				if (cursors.up.isDown && player.body.onFloor()) {
 					player.body.velocity.y = -190;
@@ -182,6 +181,7 @@ body {
 				}
 			}
 		}
+
 		//coins
 		function coinOverlap(player, coin) {
 			coin.kill();
@@ -189,6 +189,7 @@ body {
 			coinSound = game.add.audio('tink');
 			coinSound.play();
 		}
+
 		//manitaria
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
@@ -208,72 +209,71 @@ body {
 		}
 
 		function turtleOverlap(player, turtle){
-	if(player.body.touching.down && (turtle.frame != 9)) {
+			if(player.body.touching.down && (turtle.frame != 9)) {
 
-		//Turtle score add
-		score += 420;
+				//Turtle score add
+				score += 420;
 
-		//kill sound playback
-		jumpSound = game.add.audio('push');
-		jumpSound.play();
+				//kill sound playback
+				jumpSound = game.add.audio('push');
+				jumpSound.play();
 
-		//Creating turtles behavior
-		turtle.body.velocity.x = 0;
-		turtle.animations.stop();
-		turtle.frame = 9;
-		turtle.body.setSize(16, 16, 0, 8);
-		if (cursors.up.isDown){
-			player.body.velocity.y = -200;
+				//Creating turtles behavior
+				turtle.body.velocity.x = 0;
+				turtle.animations.stop();
+				turtle.frame = 9;
+				turtle.body.setSize(16, 16, 0, 8);
+				if (cursors.up.isDown){
+					player.body.velocity.y = -200;
 
-			//Jump sound playback
-			jumpSound = game.add.audio('push');
-			jumpSound.play( '', 0, 1);
-		}else
-			player.body.velocity.y = -80;
-	}else if(player.body.touching.down && (turtle.frame == 9)){
-		turtle.body.velocity.x = 0;
-		if (cursors.up.isDown){
-			player.body.velocity.y = -220;
-			jumpSound = game.add.audio('push');
-			jumpSound.play( '', 0, 1);
-		}else
-			player.body.velocity.y = -80;
-	}else if(player.body.touching.left && (turtle.frame == 9)){
-		if (turtle.body.velocity.x == 0){
+					//Jump sound playback
+					jumpSound = game.add.audio('push');
+					jumpSound.play( '', 0, 1);
+				}else
+					player.body.velocity.y = -80;
+			}else if(player.body.touching.down && (turtle.frame == 9)){
+				turtle.body.velocity.x = 0;
+				if (cursors.up.isDown){
+					player.body.velocity.y = -220;
+					jumpSound = game.add.audio('push');
+					jumpSound.play( '', 0, 1);
+				}else
+					player.body.velocity.y = -80;
+			}else if(player.body.touching.left && (turtle.frame == 9)){
+				if (turtle.body.velocity.x == 0){
 
-			//Kick sound playback
-			jumpSound = game.add.audio('push');
-			jumpSound.play();
+					//Kick sound playback
+					jumpSound = game.add.audio('push');
+					jumpSound.play();
 			
-			console.log(turtle.frame);
+					console.log(turtle.frame);
 
-			turtle.body.velocity.x = -1000000000;
-			turtle.body.velocity.x = -170;
-			player.body.velocity.x = 1000000000;
-		}else{
-			deathmlg();
-			console.log(turtle.frame);
-		}
-	}else if(player.body.touching.right && (turtle.frame == 9)){
-		if (turtle.body.velocity.x == 0){
+					turtle.body.velocity.x = -1000000000;
+					turtle.body.velocity.x = -170;
+					player.body.velocity.x = 1000000000;
+				}else{
+					deathmlg();
+					console.log(turtle.frame);
+				}
+			}else if(player.body.touching.right && (turtle.frame == 9)){
+				if (turtle.body.velocity.x == 0){
 
-			//Kick sound playback
-			jumpSound = game.add.audio('push');
-			jumpSound.play();
+					//Kick sound playback
+					jumpSound = game.add.audio('push');
+					jumpSound.play();
 			
-			console.log(turtle.frame);
+					console.log(turtle.frame);
 
-			turtle.body.velocity.x = 1000000000;
-			turtle.body.velocity.x = 170;
-			player.body.velocity.x = -1000000000;
-		}else{
-			deathmlg();
-			console.log(turtle.frame);
+					turtle.body.velocity.x = 1000000000;
+					turtle.body.velocity.x = 170;
+					player.body.velocity.x = -1000000000;
+				}else{
+					deathmlg();
+					console.log(turtle.frame);
+				}
+			}else if((player.body.touching.right || player.body.touching.left) && (turtle.frame != 9))
+				deathmlg();
 		}
-	}else if((player.body.touching.right || player.body.touching.left) && (turtle.frame != 9))
-		deathmlg();
-}
-
 
 		function turtleMOVE(turtle, layer){
 			//Updating turtle's animation
@@ -285,26 +285,27 @@ body {
 			}else
 				turtle.frame = 9;
 		}
+
 		function deathmlg(){
 			//death sound
-				music.stop();
-				deathSound = game.add.audio('death');
-				deathSound.play();
-				
-				//Lives
-				lives -= 1;
-				localStorage.setItem("livesL", lives);
-				
-				player.frame = 6;
-				player.body.enable = false;
-				player.animations.stop();
-				
-				
-				game.time.events.add(Phaser.Timer.SECOND * 3, function() {
-					if(lives == 0)
-						game.paused = true;
+			music.stop();
+			deathSound = game.add.audio('death');
+			deathSound.play();
+		
+			//Lives
+			lives -= 1;
+			localStorage.setItem("livesL", lives);
+	
+			player.frame = 6;
+			player.body.enable = false;
+			player.animations.stop();
+	
+			game.time.events.add(Phaser.Timer.SECOND * 3, function() {
+				if(lives == 0){
 					this.game.state.restart();
-				});
+					//game.paused = true;
+				}
+			});
 		}
 	</script>
 </body>
